@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMenu } from '../contexts/MenuContext';
 import MenuCard from '../components/Menu/MenuCard';
-import { Crown } from 'lucide-react';
+import { Crown, Loader } from 'lucide-react';
 
 const Menu: React.FC = () => {
   const { menuItems } = useMenu();
@@ -17,6 +17,26 @@ const Menu: React.FC = () => {
   const filteredItems = activeCategory === 'all' 
     ? menuItems 
     : menuItems.filter(item => item.category === activeCategory);
+
+  // Show loading state if no menu items are loaded yet
+  if (!menuItems || menuItems.length === 0) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <Crown className="h-12 w-12 text-royal-500 mx-auto mb-4" />
+            <h1 className="text-4xl font-display font-bold text-burgundy-800 mb-4">
+              Royal Menu
+            </h1>
+            <div className="flex items-center justify-center space-x-2 mt-8">
+              <Loader className="h-6 w-6 text-royal-500 animate-spin" />
+              <p className="text-lg text-gray-600">Loading our royal menu...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">

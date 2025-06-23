@@ -53,7 +53,7 @@ const initialMenuItems: MenuItem[] = [
     description: 'Aromatic basmati rice layered with tender lamb and royal spices',
     price: 28.99,
     category: 'main',
-    image: 'https://images.pexels.com/photos/17649369/pexels-photo-17649369.jpeg',
+    image: 'https://images.pexels.com/photos/12737659/pexels-photo-12737659.jpeg',
     available: true,
     spiceLevel: 'medium',
     isVegetarian: false,
@@ -64,7 +64,7 @@ const initialMenuItems: MenuItem[] = [
     description: 'Creamy tomato-based curry with tender chicken pieces',
     price: 24.99,
     category: 'main',
-    image: 'https://images.pexels.com/photos/9609844/pexels-photo-9609844.jpeg',
+    image: 'https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg',
     available: true,
     spiceLevel: 'mild',
     isVegetarian: false,
@@ -75,49 +75,100 @@ const initialMenuItems: MenuItem[] = [
     description: 'Rich lentil curry with a blend of aromatic spices',
     price: 18.99,
     category: 'main',
-    image: 'https://images.pexels.com/photos/12737916/pexels-photo-12737916.jpeg',
+    image: 'https://images.pexels.com/photos/5560754/pexels-photo-5560754.jpeg',
+    available: true,
+    spiceLevel: 'mild',
+    isVegetarian: true,
+  },
+  {
+    id: '7',
+    name: 'Chicken Tikka Masala',
+    description: 'Grilled chicken in a rich, creamy tomato and spice sauce',
+    price: 26.99,
+    category: 'main',
+    image: 'https://images.pexels.com/photos/2474658/pexels-photo-2474658.jpeg',
+    available: true,
+    spiceLevel: 'medium',
+    isVegetarian: false,
+  },
+  {
+    id: '8',
+    name: 'Palak Paneer',
+    description: 'Fresh cottage cheese in a creamy spinach curry',
+    price: 22.99,
+    category: 'main',
+    image: 'https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg',
     available: true,
     spiceLevel: 'mild',
     isVegetarian: true,
   },
   // Desserts
   {
-    id: '7',
+    id: '9',
     name: 'Royal Kulfi',
     description: 'Traditional Indian ice cream with cardamom and pistachios',
     price: 8.99,
     category: 'dessert',
-    image: 'https://imgs.search.brave.com/7YAeRRwM2-QhyfVPI5InJyE6zVDWpHkuDt1RjkGk-xQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTQ5/NTI4NTE0NC9waG90/by9zaGFoaS1rdWxm/aS1vci1rdWxmaS1p/bmNsdWRlLWtob3lh/LW1pbGstYmFkYW0t/YWxtb25kLXdpdGgt/c3RpY2stc2VydmVk/LWluLWRpc2gtaXNv/bGF0ZWQtb24uanBn/P3M9NjEyeDYxMiZ3/PTAmaz0yMCZjPS04/RXdrYlRtMHVKRVhx/OUxKdEZuNThKQWtV/WUlwSlVSbGwtVXhp/eDhNM009',
+    image: 'https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg',
     available: true,
     isVegetarian: true,
   },
   {
-    id: '8',
+    id: '10',
     name: 'Gulab Jamun',
     description: 'Soft milk dumplings in rose-flavored sugar syrup',
     price: 9.99,
     category: 'dessert',
-    image: 'https://images.pexels.com/photos/7449105/pexels-photo-7449105.jpeg',
+    image: 'https://images.pexels.com/photos/5560748/pexels-photo-5560748.jpeg',
+    available: true,
+    isVegetarian: true,
+  },
+  {
+    id: '11',
+    name: 'Ras Malai',
+    description: 'Delicate cottage cheese dumplings in sweetened milk',
+    price: 10.99,
+    category: 'dessert',
+    image: 'https://images.pexels.com/photos/4449068/pexels-photo-4449068.jpeg',
     available: true,
     isVegetarian: true,
   },
 ];
 
 export const MenuProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems);
 
   useEffect(() => {
+    // Try to load from localStorage, but always ensure we have default items
     const savedItems = localStorage.getItem('maharaja_menu');
     if (savedItems) {
-      setMenuItems(JSON.parse(savedItems));
+      try {
+        const parsedItems = JSON.parse(savedItems);
+        if (Array.isArray(parsedItems) && parsedItems.length > 0) {
+          setMenuItems(parsedItems);
+        } else {
+          // If saved items are empty or invalid, use initial items
+          setMenuItems(initialMenuItems);
+          localStorage.setItem('maharaja_menu', JSON.stringify(initialMenuItems));
+        }
+      } catch (error) {
+        // If parsing fails, use initial items
+        console.error('Error parsing saved menu items:', error);
+        setMenuItems(initialMenuItems);
+        localStorage.setItem('maharaja_menu', JSON.stringify(initialMenuItems));
+      }
     } else {
+      // No saved items, use initial items
       setMenuItems(initialMenuItems);
       localStorage.setItem('maharaja_menu', JSON.stringify(initialMenuItems));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('maharaja_menu', JSON.stringify(menuItems));
+    // Save to localStorage whenever menuItems changes
+    if (menuItems.length > 0) {
+      localStorage.setItem('maharaja_menu', JSON.stringify(menuItems));
+    }
   }, [menuItems]);
 
   const addMenuItem = (item: Omit<MenuItem, 'id'>) => {
