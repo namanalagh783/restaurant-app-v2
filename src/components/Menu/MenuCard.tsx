@@ -49,7 +49,7 @@ const MenuCard: React.FC<MenuCardProps> = ({ item }) => {
             {item.name}
           </h3>
           <span className="text-2xl font-bold text-royal-600">
-            ${item.price.toFixed(2)}
+            ₹{item.price.toFixed(2)}
           </span>
         </div>
         
