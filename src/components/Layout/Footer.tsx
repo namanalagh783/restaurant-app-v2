@@ -43,11 +43,11 @@ const Footer: React.FC = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-royal-300 flex-shrink-0" />
-                <p className="text-gray-300 text-sm">+91 11 1234 5678</p>
+                <p className="text-gray-300 text-sm">+91 9560717377</p>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-royal-300 flex-shrink-0" />
-                <p className="text-gray-300 text-sm">info@maharajadining.com</p>
+                <p className="text-gray-300 text-sm">namanalagh783@gmail.com</p>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-burgundy-700 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            © 2024 Maharaja Dining. All rights reserved. | Crafted with royal precision.
+            © 2024 Maharaja Dining. All rights reserved. | Developed by Naman Alagh.
           </p>
         </div>
       </div>
