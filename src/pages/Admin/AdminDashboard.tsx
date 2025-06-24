@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Crown, Plus, Edit, Trash2, ToggleLeft, ToggleRight, Calendar, Users, ChefHat, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { Crown, Plus, Edit, Trash2, Calendar, Users, ChefHat, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { useMenu } from '../../contexts/MenuContext';
 import { useBooking } from '../../contexts/BookingContext';
 import { useAuth } from '../../contexts/AuthContext';
@@ -339,7 +339,7 @@ const AdminDashboard: React.FC = () => {
                             </span>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            ${item.price.toFixed(2)}
+                            ₹{item.price.toFixed(2)}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <button
